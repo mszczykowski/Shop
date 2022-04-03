@@ -28,6 +28,14 @@ builder.Services.AddScoped<IProductManagerService, ProductManagerService>();
 builder.Services.AddScoped<IProductValidationRules, ProductValidationRules>();
 builder.Services.AddScoped<IProductValidationService, ProductValidationService>();
 
+builder.Services.AddCors(options =>
+                options.AddPolicy("DefaultCorsPolicy", builder => builder
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowAnyOrigin()
+                )
+            );
+
 builder.Host.ConfigureLogging(logging =>
 {
     logging.ClearProviders();
@@ -50,5 +58,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseMiddleware<ExceptionHandlerMiddleware>();
+
+app.UseCors("DefaultCorsPolicy");
 
 app.Run();
