@@ -1,0 +1,23 @@
+<nav class="navbar navbar-light bg-primary">
+    <div class="container">
+        <h1 style="color: white;">Details</h1>
+        <a class="btn btn-secondary" [routerLink]="['/']">
+            Back to list
+        </a>
+    </div>
+
+</nav>
+
+<div class="container">
+    <div *ngIf="product">
+        <h3>{{ product.name }}</h3>
+        <label for="price" class="font-weight-bold">Price</label>
+        <p name="price">{{ product.price }}</p>
+        <label for="number" class="font-weight-bold">Number</label>
+        <p name="number" class="font-weight-bold">{{ product.number }}</p>
+        <label for="quantity">Quantity</label>
+        <p name="quantity">{{ product.quantity }}</p>
+        <label for="price" class="font-weight-bold">Description</label>
+        <p>{{ product.description }}</p>
+    </div>
+</div>

@@ -1,39 +1,45 @@
 <nav class="navbar navbar-light bg-primary">
-    <div class="container-fluid">
+    <div class="container">
         <h1 style="color: white;">Products</h1>
         <div class="d-flex">
             <button (click)="onAdd()" type="button" data-bs-toggle="modal" data-bs-target="#modal" class="btn btn-success">Add product</button>
         </div>
     </div>
 </nav>
+<div class="container">
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Number</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of productData">
+                <td>{{product.id}}</td>
 
-<table class="table mt-3">
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Number</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Description</th>
-            <th scope="col">Price</th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let row of productData">
-            <td>{{row.id}}</td>
-            <td>{{row.name}}</td>
-            <td>{{row.number}}</td>
-            <td>{{row.quantity}}</td>
-            <td>{{row.description}}</td>
-            <td>{{row.price}} USD</td>
-            <td>
-                <button (click)="onEdit(row)" type="button" data-bs-toggle="modal" data-bs-target="#modal" class="btn btn-info">Edit</button>
-                <button (click)="deleteProduct(row)" class="btn btn-danger mx-3">Delete</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+                <td>
+                    <a [title]="product.name" [routerLink]="['/products', product.id]">
+                    {{ product.name }}
+                  </a>
+                </td>
+                <td>{{product.number}}</td>
+                <td>{{product.quantity}}</td>
+                <td>{{product.price}} USD</td>
+                <td>
+                    <button (click)="onEdit(product)" type="button" data-bs-toggle="modal" data-bs-target="#modal" class="btn btn-info">Edit</button>
+                    <button (click)="deleteProduct(product)" class="btn btn-danger mx-3">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
 
 
 <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -44,7 +50,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form [formGroup]="formValue">
+                <form [formGroup]="productForm">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" formControlName="name" class="form-control" id="name">
@@ -59,7 +65,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <input type="text" formControlName="description" class="form-control" id="page-count">
+                        <textarea formControlName="description" class="form-control" id="page-count"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="price" class="form-label">Price</label>
